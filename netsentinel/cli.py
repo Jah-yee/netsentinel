@@ -280,8 +280,6 @@ def cmd_alert(args, cfg) -> int:
     notifier = Notifier(mailbox)
     for a in alerts:
         notifier.emit(a)
-    if args.export:
-        print(export_json(notifier.accepted))
     payload = {
         "mailbox": mailbox_path,
         "ingested": len(alerts),
@@ -294,10 +292,13 @@ def cmd_alert(args, cfg) -> int:
                       {"alerts": [a.to_dict() for a in notifier.accepted]},
                       [{"heading": "Alert mailbox", "list": [a.subject for a in notifier.accepted[:50]]},
                        {"heading": "Deduplication", "text": f"{len(notifier.accepted)} accepted, "
-                                                             f"{len(notifier.suppressed)} suppressed"}],
+                                                              f"{len(notifier.suppressed)} suppressed"}],
                       meta={"tool": "netsentinel", "version": __version__})
     write_json(os.path.join(args.outdir, "alert.json"), payload)
-    print(json.dumps(payload, indent=2, sort_keys=True))
+    if args.export:
+        print(export_json(notifier.accepted))   # stdout = pure JSON stream only
+    else:
+        print(json.dumps(payload, indent=2, sort_keys=True))
     return OFFLINE_OK
 
 
