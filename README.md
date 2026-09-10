@@ -1,4 +1,5 @@
 # netsentinel
+![tests](https://github.com/5h4d0wn1k/netsentinel/actions/workflows/ci.yml/badge.svg) ![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
 Detection engine suite: signature rules NIDS, ML flow-anomaly detection,
 kernel-watch monitor, MITM detectors (ARP/DHCP/DNS/TCP), SIEM-lite incident
@@ -159,3 +160,6 @@ only test systems you own or have written authorization to assess.
 ## License
 
 MIT — see `LICENSE`. Copyright (c) 2026 5h4d0wn1k.
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
